@@ -1,0 +1,13 @@
+[package]
+name = "rust_greek"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+mongodb =  { version = "2.8.0", default-features = false, features = ["sync", "openssl-tls"] }   # MongoDB driver for Rust
+chrono = "0.4"       # Date and time manipulation
+rayon = "1.5"        # For parallel processing
+statrs = "0.15.0"    # Statistical functions and distributions
+regex = "1.5"        # Regular expressions for filtering
+futures = "0.3"      # For async features, if needed
+serde = "1.0.210"
