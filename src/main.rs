@@ -1,5 +1,7 @@
 use chrono::{Datelike, NaiveDate, Utc};
+use dotenv::dotenv;
 use std::collections::HashMap;
+use std::env;
 use std::sync::atomic::{AtomicUsize, Ordering};
 use std::thread;
 use std::time::Duration;
@@ -674,8 +676,7 @@ fn process_collections(
         }
 
         // println!("Checking Collection {}",instrument_name);
-        if !option_collections.contains(&instrument_name)
-        {
+        if !option_collections.contains(&instrument_name) {
             continue;
         }
 
@@ -710,9 +711,12 @@ fn process_collections(
 }
 
 fn main() -> Result<()> {
+    // Load the .env file
+    dotenv().ok();
+
     // Connection string for big_client
-    let big_uri = "mongodb://Unfluke:Temp111!@43.204.111.72:27017/Unfluke?authSource=admin&readPreference=primary&directConnection=true&ssl=false";
-    let main_uri = "mongodb://Unfluke:Temp111!@3.6.244.31:27017/Unfluke?authSource=admin&replicaSet=rs0&readPreference=primary&directConnection=true&ssl=false";
+    let big_uri = env::var("BIG_URI").expect("BIG_URI must be set");
+    let main_uri = env::var("MAIN_URI").expect("MAIN_URI must be set");
 
     // Create clients synchronously
     let big_client = Client::with_uri_str(big_uri)?;
